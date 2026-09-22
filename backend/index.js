@@ -9,9 +9,12 @@ const cors = require("cors");
 const userResponses = require("./models/userResponses");
 
 const app = express();
+const PORT = process.env.PORT || 8000;
+
+require("dotenv").config();
 
 mongoose
-  .connect("mongodb://127.0.0.1:27017/Examify1")
+  .connect(process.env.MONGO_URL)
   .then(() => console.log("MongoDB connected"))
   .catch((err) => console.log(err));
 app.use(
@@ -20,6 +23,10 @@ app.use(
     credentials: true,
   }),
 );
+
+mongoose.connection.once("open", () => {
+  console.log("Connected DB:", mongoose.connection.name);
+});
 app.use(express.json());
 app.use(cookieParser());
 
@@ -33,6 +40,6 @@ app.get("/api/questions", displayQuestion);
 app.post("/api/userResponse", recordResponse);
 app.get("/api/results", getResults);
 
-app.listen(8000, () => {
+app.listen(PORT, () => {
   console.log("Server Started");
 });

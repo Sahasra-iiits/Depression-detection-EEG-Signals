@@ -1,16 +1,24 @@
 const userResponses = require("../models/userResponses");
 
 async function recordResponse(req, res) {
-  const id = req.cookies?.uid;
-  const { Q_id, isCorrect, phase_no, status, responseTime } = req.body;
-  await userResponses.create({
-    user: id,
-    Q_id: Q_id,
-    isCorrect: isCorrect,
-    phase: phase_no,
-    status: status,
-    responseTime: responseTime,
-  });
+  try {
+    const id = req.cookies?.uid;
+    const { Q_id, isCorrect, phase_no, status, responseTime } = req.body;
+    await userResponses.create({
+      user: id,
+      Q_id: Q_id,
+      isCorrect: isCorrect,
+      phase: phase_no,
+      status: status,
+      responseTime: responseTime,
+    });
+    res.status(200).json({ success: true });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      message: "Failed to record response",
+    });
+  }
 }
 
 async function getResults(req, res) {
@@ -29,7 +37,12 @@ async function getResults(req, res) {
     let phase2Wrong = 0;
     let phase2Unattempted = 0;
 
+    const latestResponses = new Map();
     responses.forEach((r) => {
+      latestResponses.set(r.Q_id, r);
+    });
+
+    latestResponses.forEach((r) => {
       if (r.phase === "1") {
         if (r.status === "unattempted") {
           phase1Unattempted++;
