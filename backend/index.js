@@ -19,7 +19,7 @@ mongoose
   .catch((err) => console.log(err));
 app.use(
   cors({
-    origin: "https://depression-detection-eeg-signals.vercel.app/",
+    origin: "https://depression-detection-eeg-signals.vercel.app",
     credentials: true,
   }),
 );
