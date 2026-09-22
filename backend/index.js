@@ -40,6 +40,6 @@ app.get("/api/questions", displayQuestion);
 app.post("/api/userResponse", recordResponse);
 app.get("/api/results", getResults);
 
-app.listen(PORT, () => {
+app.listen(PORT, "0.0.0.0", () => {
   console.log("Server Started");
 });
