@@ -27,9 +27,11 @@ async function displayQuestion(req, res) {
 
     res.json(questions);
   } catch (error) {
+    console.error("FETCH ERROR:", error);
+
     res.status(500).json({
       message: "Error fetching questions",
-      error,
+      error: error.message,
     });
   }
 }
