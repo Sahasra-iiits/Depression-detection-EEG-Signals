@@ -2,7 +2,7 @@ const Question = require("../models/question");
 
 async function displayQuestion(req, res) {
   try {
-    const phase = req.query.phase || req.body.phase;
+    const phase = req.query.phase || req.body?.phase;
     let matchCondition = {};
 
     if (phase === "1" || phase === "Phase-1") {
