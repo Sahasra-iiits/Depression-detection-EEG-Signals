@@ -42,7 +42,7 @@ function Details() {
           withCredentials: true,
         },
       );
-
+      console.log("USER RESPONSE:", res.data);
       if (res.data.success) {
         navigate("/");
       }

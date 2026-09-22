@@ -9,7 +9,11 @@ async function newUser(req, res) {
     fullName: fullname,
     age: age,
   });
-  res.cookie("uid", id);
+  res.cookie("uid", id, {
+    httpOnly: true,
+    secure: true,
+    sameSite: "none",
+  });
   res.json({ success: true });
 }
 
