@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 function End() {
+  const API_URL = import.meta.env.VITE_API_URL;
   const [phase1Correct, setPhase1Correct] = useState(0);
   const [phase1Wrong, setPhase1Wrong] = useState(0);
   const [phase2Correct, setPhase2Correct] = useState(0);
@@ -15,7 +16,7 @@ function End() {
   useEffect(() => {
     async function fetchResults() {
       try {
-        const res = await axios.get("http://localhost:8000/api/results", {
+        const res = await axios.get(`${API_URL}/api/results`, {
           withCredentials: true,
         });
 

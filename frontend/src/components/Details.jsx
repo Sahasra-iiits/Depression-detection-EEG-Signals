@@ -7,6 +7,7 @@ function Details() {
     fullname: "",
     age: "",
   });
+  const API_URL = import.meta.env.VITE_API_URL;
 
   // NEW: consent state
   const [consent, setConsent] = useState(false);
@@ -32,7 +33,7 @@ function Details() {
 
     try {
       const res = await axios.post(
-        "http://localhost:8000/api/user",
+        `${API_URL}/api/user`,
         {
           ...formData,
           consent: true,

@@ -7,6 +7,7 @@ import { feedbacks } from "../data/feedbacks";
 
 function Question({ phase }) {
   const WORLD_AVG = 62;
+  const API_URL = import.meta.env.VITE_API_URL;
 
   const [correctCount, setCorrectCount] = useState(0);
   const [wrongCount, setWrongCount] = useState(0);
@@ -66,7 +67,7 @@ function Question({ phase }) {
   useEffect(() => {
     if (!phase) return;
 
-    fetch(`http://localhost:8000/api/questions?phase=${phase}`)
+    fetch(`${API_URL}/api/questions?phase=${phase}`)
       .then((res) => res.json())
       .then((data) => {
         console.log("Fetched questions:", data);
@@ -105,7 +106,7 @@ function Question({ phase }) {
 
     try {
       axios.post(
-        "http://localhost:8000/api/userResponse",
+        `${API_URL}/api/userResponse`,
         {
           Q_id: currentQuestion.Q_id,
           selectedOption: null,
@@ -156,7 +157,7 @@ function Question({ phase }) {
 
     try {
       axios.post(
-        "http://localhost:8000/api/userResponse",
+        `${API_URL}/api/userResponse`,
         {
           Q_id: currentQuestion.Q_id,
           selectedOption: selectedValue,
@@ -238,16 +239,16 @@ function Question({ phase }) {
         <div className="h-[550px] w-[1100px] border-black border-2 p-[30px]">
           <div className="flex justify-between items-center">
             <div className="flex gap-4">
-              <p className="p-[3px] border-black border-1 rounded-[5px] w-[100px] h-[25px] flex justify-center items-center">
+              <p className="p-[3px] border-black border rounded-[5px] w-[100px] h-[25px] flex justify-center items-center">
                 Question {index + 1}
               </p>
 
-              <p className="p-[3px] border-black border-1 rounded-[5px] w-[70px] h-[25px] flex justify-center items-center capitalize">
+              <p className="p-[3px] border-black border rounded-[5px] w-[70px] h-[25px] flex justify-center items-center capitalize">
                 {questions[index].difficultyLevel}
               </p>
             </div>
             <div>
-              <p className=" text-4xl font-semibold border-1 border-black p-[10px] rounded-[5px] w-[120px] h-[55px] flex justify-center items-center">
+              <p className=" text-4xl font-semibold border border-black p-[10px] rounded-[5px] w-[120px] h-[55px] flex justify-center items-center">
                 {timeLeft}
                 <span className="text-[15px] font-thin"> seconds left</span>
               </p>

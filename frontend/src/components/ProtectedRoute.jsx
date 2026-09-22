@@ -4,9 +4,10 @@ import { useNavigate } from "react-router-dom";
 function ProtectedRoute({ children }) {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
+  const API_URL = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
-    fetch("http://localhost:8000/api/user", {
+    fetch(`${API_URL}/api/user`, {
       credentials: "include",
     })
       .then((res) => res.json())
